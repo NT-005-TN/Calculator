@@ -1,0 +1,38 @@
+package Calc2;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+public class Calc2{
+
+	public Calc2() {
+		JFrame frame = new JFrame("Calculator");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+		
+		//JPanel panel = new JPanel();
+		
+		frame.setLocationRelativeTo(null);
+		frame.setLayout(new FlowLayout());
+		
+		button(frame);
+		
+		frame.setVisible(true);
+		
+	}
+	
+	void button(JFrame frame) {
+		JButton button = new JButton("Click");
+		
+		frame.add(button);
+	}
+	
+	public static void main(String[] args) {
+		Calc2 calc = new Calc2();
+		
+	}
+
+}
