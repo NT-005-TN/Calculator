@@ -26,7 +26,13 @@ public class Calc2{
 	
 	void button(JFrame frame) {
 		JButton button = new JButton("Click");
-		
+
+		 button.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                System.out.println("Button Clicked!");
+	            }
+	        });
+
 		frame.add(button);
 	}
 	
