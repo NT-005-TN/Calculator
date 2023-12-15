@@ -25,32 +25,112 @@ public class Calc2 implements ActionListener{
 		JPanel contents = new JPanel(new FlowLayout());
 		
 		JTextField textField1 = new JTextField();
-		textField1.setPreferredSize(new Dimension(210,50));
+		textField1.setPreferredSize(new Dimension(100,50));
 		contents.add(textField1);
 		
-		String[] names = {"=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "0", "-", "*", "", "/"};
+		JTextField textField2 = new JTextField("o");
+		textField2.setPreferredSize(new Dimension(100,50));
+		contents.add(textField2);
 		
-		for(int i = 0; i < 16; i++) {
+		JTextField textField3 = new JTextField();
+		textField3.setPreferredSize(new Dimension(100,50));
+		contents.add(textField3);
+		
+
+		JLabel label = new JLabel("Here Answ");
+		label.setPreferredSize(new Dimension(185, 50));
+		
+		int k = 0;
+		int res = 0;
+		String[] names = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "0", "-", "*", "=", "/"};
+		
+		for(int i = 0; i < 15; i++) {
 			JButton b = new JButton(names[i]);
 			b.setPreferredSize(new Dimension(90, 50));
-			if (names[i] != "=") {
-				b.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String actions = textField1.getText() + b.getText();
-						textField1.setText(actions);
-						}
-					});
-			}
 			
-			contents.add(b);
-		}
-
-		frame.add(contents);
-		frame.setVisible(true);
-	}
-	
-	void Logic(String actions) {
+			b.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					if (!b.getText().equals("=")) {
+						if((b.getText() == "+") || (b.getText() == "-") || (b.getText() == "*") || (b.getText() == "/")){
+							textField2.setText(b.getText());
+							String actions = "";
+						} else if(textField2.getText().equals("o")){
+							String actions = textField1.getText() + b.getText();
+							textField1.setText(actions);
+						} else {
+							String actions = textField3.getText() + b.getText();
+							textField3.setText(actions);
+						}
+					}	
+					
+					
+					if (b.getText().equals("=")) {
+						Errors(textField1, label);
+						Errors(textField2, label);
+						Errors(textField3, label);
+						if (!label.getText().equals("Error")) {
+							
+							double a = Double.parseDouble(textField1.getText());
+							double b = Double.parseDouble(textField3.getText());
+							String op = textField2.getText();
+							
+							if(op.equals("+")) {
+								label.setText(Double.toString(a+b));
+							}else if(op.equals("-")) {
+								label.setText(Double.toString(a-b));
+							}else if(op.equals("*")) {
+								label.setText(Double.toString(a*b));
+							}else if(op.equals("/")) {
+								label.setText(Double.toString(a/b));
+							}
+						}
+					
+					
+					}
+				}
+			});
 		
+		
+		contents.add(b);
+	}
+	JButton buttonClear = new JButton("C");
+	buttonClear.setPreferredSize(new Dimension(90, 50));
+	buttonClear.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textField1.setText("");
+			textField2.setText("o");
+			textField3.setText("");
+			label.setText("Here Answ");
+		}
+	});
+	contents.add(buttonClear);
+	contents.add(label);
+	frame.add(contents);
+	frame.setVisible(true);
+}
+	
+	
+	void Errors(JTextField textField, JLabel label) {
+		char[] charArray = textField.getText().toCharArray();
+		char[] numArray = "0123456789+-/*".toCharArray();
+		if(textField.getText().equals("")) {
+			label.setText("Error");
+		} else {
+			for (char c : charArray) {
+				boolean contains = false;
+				for (char d : numArray) {
+				    if (c == d) {
+				        contains = true;
+				        break;
+				    }
+				}
+				if (!contains) {
+					label.setText("Error");
+					break;
+				}
+			}
+		}
 	}
 	
 	
