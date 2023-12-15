@@ -8,59 +8,56 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Calc2{
+public class Calc2 implements ActionListener{
 
 	public Calc2() {
-		String text = "";
-		JFrame frame = new JFrame("Calculator");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 500);
-		
-		//JPanel panel = new JPanel();
-		
-		frame.setLocationRelativeTo(null);
-		//frame.setLayout(new FlowLayout());
-		
-		frame.setLayout(new GridLayout(6, 3, 25, 25));
-		
-		JPanel pan1 = new JPanel();
-		JPanel pan2 = new JPanel();
-		frame.add(pan1);
-		
-		JTextField textfield = new JTextField("");
-		frame.add(textfield);
-		frame.add(pan2);
-		
-		String[] buttons = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "0", "-", "/", "*", "="};
-		
-		
-		for(int i = 0; i < 15; i++) {
-			frame.add(new JButton(buttons[i]));
-		}
-		
-		
-		/*
-		ActionListener actionlistener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("plus");
-            }
-		};
-		
-		buttonPlus.addActionListener(actionlistener);
-		*/
-		
-		
-		frame.setVisible(true);
-		
+		Frame("Calculator");
 	}
 	
 		
+	void Frame(String name){
+		JFrame frame = new JFrame(name);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(340, 500);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 		
+		JPanel contents = new JPanel(new FlowLayout());
+		
+		JTextField textField1 = new JTextField();
+		textField1.setPreferredSize(new Dimension(210,50));
+		contents.add(textField1);
+		
+		String[] names = {"=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "0", "-", "*", "", "/"};
+		
+		for(int i = 0; i < 16; i++) {
+			JButton b = new JButton(names[i]);
+			b.setPreferredSize(new Dimension(90, 50));
+			if (names[i] != "=") {
+				b.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String actions = textField1.getText() + b.getText();
+						textField1.setText(actions);
+						}
+					});
+			}
+			
+			contents.add(b);
+		}
+
+		frame.add(contents);
+		frame.setVisible(true);
+	}
+	
+	void Logic(String actions) {
+		
+	}
 	
 	
 	public static void main(String[] args) {
 		Calc2 calc = new Calc2();
 		
 	}
+
 
 }
