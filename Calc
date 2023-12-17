@@ -101,7 +101,7 @@ public class Calc2 implements ActionListener{
 			textField1.setText("");
 			textField2.setText("o");
 			textField3.setText("");
-			label.setText("Here Answ");
+			label.setText("Here Answ. " + "Last =" + label.getText());
 		}
 	});
 	contents.add(buttonClear);
@@ -136,7 +136,6 @@ public class Calc2 implements ActionListener{
 	
 	public static void main(String[] args) {
 		Calc2 calc = new Calc2();
-		
 	}
 
 
